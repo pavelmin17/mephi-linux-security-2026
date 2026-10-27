@@ -1,0 +1,5 @@
+    PID  RUID  EUID RUSER    EUSER    CMD
+   4360  1000     0 minaevpd root     sudo -i
+   4361  1000     0 minaevpd root     sudo -i
+   4572  1000     0 minaevpd root     su - user1
+   4585  1234     0 user1    root     passwd

@@ -1,0 +1,33 @@
+    1  groupadd students
+    2  useradd -m -u 1234 -G students user1
+    3  passwd user1
+    4  id user1
+    5  chage -l user1
+    6  find / -type f -perm -4000 2>/dev/null | tee ~/find_suid.out
+    7  ps -eo pid,ruid,euid,ruser,euser,cmd | awk 'NR==1 || ($3==0 && $2>=1000 && $2!=65534)' | tee ~/ps_euid0.out
+    8  su - user1 -c 'cat /etc/shadow'
+    9  cp /usr/bin/cat /home/user1/mycat
+   10  chmod u+s /home/user1/mycat
+   11  ls -l /home/user1/mycat
+   12  su - user1 -c '/home/user1/mycat /etc/shadow'
+   13  su - user1 -c 'touch ~/testfile'
+   14  su - user1 -c 'chown root ~/testfile'
+   15  cp /usr/bin/chown /home/user1/mychown
+   16  setcap cap_chown+ep /home/user1/mychown
+   17  getcap /home/user1/mychown
+   18  su - user1 -c '/home/user1/mychown root ~/testfile'
+   19  ls -l /home/user1/testfile
+   20  EDITOR=nano visudo
+   21  sudo -l -U user1
+   22  su - user1 -c 'sudo date -s "2026-01-01 12:00:00"'
+   23  date 
+   24  su -u user1
+   25  su user1
+   26  chronyc makestep  
+   27  echo "М265268"; id user1; ls -l /home/user1; getcap /home/user1/mychown
+   28  exit
+   29  stat /home/user1 > ~/stat.out
+   30  stat /home/user1/mycat >> ~/stat.out
+   31  stat /home/user1/mychown >> ~/stat.out
+   32  getcap /home/user1/mychown > ~/getcap.out
+   33  history > ~/history.out
